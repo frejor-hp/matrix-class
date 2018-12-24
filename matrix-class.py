@@ -36,20 +36,46 @@ class Matrix(object):
         return len(self.matrix)
 
     def __add__(self, other):
-        return Matrix(
-                    self.add_matrix(self(), other()))
+
+        add_ = [[p1 + p2 for p1, p2 in zip(self.matrix[i], other[i])]
+                for i in range(len(other))]
+        return Matrix(add_)
+
+        # return Matrix(
+        #             self.add_matrix(self(), other()))
 
     def __sub__(self, other):
-        return Matrix(
-                    self.sub_matrix(self(), other()))
+
+        sub_ = [[p1 - p2 for p1, p2 in zip(self.matrix[i], other[i])]
+                for i in range(len(other))]
+        return Matrix(sub_)
+
+        # return Matrix(
+        #     self.sub_matrix(self(), other()))
 
     def __mul__(self, other):
         if isinstance(other, Matrix):
-            return Matrix(
-                        self.mul_matrix(self(), other()))
+            mul_ = [[0] * len(other.matrix[i]) for i in range(len(self.matrix))]
+
+            if len(self.matrix[0]) != len(other.matrix):
+                raise Exception('length of matrix A line different than length of matrix B column')
+
+            for i in range(len(self.matrix)):
+                for j in range(len(other.matrix[i])):
+                    for k in range(len(self.matrix[i])):
+                        mul_[i][j] += self.matrix[i][k] * other.matrix[k][j]
+
+            # return Matrix(
+            #     self.mul_matrix(self(), other()))
+            
         else:
-            return Matrix(
-                        self.mul_matrix(self(), other))
+            mul_ = [[p1 * other for p1 in self.matrix[i]]
+                    for i in range(len(self.matrix))]
+
+            # return Matrix(
+            #     self.mul_matrix(self(), other))
+
+        return Matrix(mul_)
 
     @classmethod
     def add_matrix(cls, m1, m2):
@@ -65,10 +91,6 @@ class Matrix(object):
                 sum_.append(m1[i] + m2[i])
 
         return sum_
-
-        # sum_ = [[l1 + l2 for l1, l2 in zip(self.matrix[i], other[i])]
-        #         for i in range(len(other))]
-        # return Matrix(sum_)
 
     @classmethod
     def sub_matrix(cls, m1, m2):
@@ -102,3 +124,8 @@ class Matrix(object):
 
 matrix = Matrix([[1, 2],
                  [3, 4]])
+
+matrix2 = Matrix([[-1, 3],
+                  [ 4, 2]])
+
+print matrix * matrix2
