@@ -5,9 +5,6 @@ class Matrix(object):
     def __repr__(self):
         return str(self.matrix)
 
-    def __str__(self):
-        return str(self.matrix)
-
     def __eq__(self, other):
         if isinstance(other, Matrix):
             if self.matrix == other.matrix:
@@ -21,6 +18,12 @@ class Matrix(object):
                 return True
             return False
         return self.matrix != other
+
+    def __pos__(self):
+        return self
+
+    def __neg__(self):
+        return self * -1
 
     def __call__(self, *args):
         matrix_ = self.matrix
@@ -67,15 +70,46 @@ class Matrix(object):
 
             # return Matrix(
             #     self.mul_matrix(self(), other()))
-            
+
         else:
-            mul_ = [[p1 * other for p1 in self.matrix[i]]
+            mul_ = [[p * other for p in self.matrix[i]]
                     for i in range(len(self.matrix))]
 
             # return Matrix(
             #     self.mul_matrix(self(), other))
 
         return Matrix(mul_)
+
+    def __div__(self, other):
+        if isinstance(other, Matrix):
+            div_ = [[]]
+            print 'Division between matrix not implemented yet'
+        else:
+            div_ = [[p / other for p in self.matrix[i]]
+                    for i in range(len(self.matrix))]
+
+        return Matrix(div_)
+
+    def __rmul__(self, other):
+        return self * other
+
+    def __int__(self):
+        int_ = [[int(p) for p in self.matrix[i]]
+                for i in range(len(self.matrix))]
+
+        return Matrix(int_)
+
+    def __float__(self):
+        return self * 1.
+
+    def __str__(self):
+        str_ = ''
+
+        for i in range(len(self.matrix)):
+            str_ += str(self.matrix[i])
+            str_ += '\n'
+
+        return str_[:-1]
 
     @classmethod
     def add_matrix(cls, m1, m2):
@@ -128,4 +162,9 @@ matrix = Matrix([[1, 2],
 matrix2 = Matrix([[-1, 3],
                   [ 4, 2]])
 
+print matrix
+print -matrix
+print matrix + matrix2
+print matrix * 2
 print matrix * matrix2
+print matrix / 2
