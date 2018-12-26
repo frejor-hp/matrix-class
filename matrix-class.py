@@ -104,12 +104,12 @@ class Matrix(object):
             line = ''
             for j in range(len(self.matrix[i])):
                 size = max_column[j] - len(str(self.matrix[i][j]))
-                line += ' ' * (size+1)  # coloco um espaco depois da virgula
+                line += ' ' * (size+1)  # coloco um espaco a mais para que nao fique junta da ','
                 line += str(self.matrix[i][j])
                 line += ','
-            str_ += '[' + line[1:-1] + ']\n'  # tiro o primeiro espaco para que fique alinhado com o '[' e o ultimo '\n'
+            str_ += '[' + line[1:-1] + ']\n'  # tiro o primeiro espaco para que fique alinhado com o '[' e a ultima ','
 
-        return str_[:-1]
+        return str_[:-1]  # tiro o ultimo '\n'
 
 
 print matrix
