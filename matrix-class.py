@@ -44,17 +44,12 @@ class Matrix(object):
                 for i in range(len(other))]
         return Matrix(add_)
 
-        # return Matrix(
-        #             self.add_matrix(self(), other()))
-
     def __sub__(self, other):
 
         sub_ = [[p1 - p2 for p1, p2 in zip(self.matrix[i], other[i])]
                 for i in range(len(other))]
-        return Matrix(sub_)
 
-        # return Matrix(
-        #     self.sub_matrix(self(), other()))
+        return Matrix(sub_)
 
     def __mul__(self, other):
         if isinstance(other, Matrix):
@@ -67,16 +62,9 @@ class Matrix(object):
                 for j in range(len(other.matrix[i])):
                     for k in range(len(self.matrix[i])):
                         mul_[i][j] += self.matrix[i][k] * other.matrix[k][j]
-
-            # return Matrix(
-            #     self.mul_matrix(self(), other()))
-
         else:
             mul_ = [[p * other for p in self.matrix[i]]
                     for i in range(len(self.matrix))]
-
-            # return Matrix(
-            #     self.mul_matrix(self(), other))
 
         return Matrix(mul_)
 
@@ -104,63 +92,25 @@ class Matrix(object):
 
     def __str__(self):
         str_ = ''
+        max_column = [0] * len(self.matrix[0])
 
         for i in range(len(self.matrix)):
-            str_ += str(self.matrix[i])
-            str_ += '\n'
+            for j in range(len(self.matrix[i])):
+                size = len(str(self.matrix[i][j]))
+                if size > max_column[j]:
+                    max_column[j] = size  # pego o numero com maior numero de caracteres na coluna
+
+        for i in range(len(self.matrix)):
+            line = ''
+            for j in range(len(self.matrix[i])):
+                size = max_column[j] - len(str(self.matrix[i][j]))
+                line += ' ' * (size+1)  # coloco um espaco depois da virgula
+                line += str(self.matrix[i][j])
+                line += ','
+            str_ += '[' + line[1:-1] + ']\n'  # tiro o primeiro espaco para que fique alinhado com o '[' e o ultimo '\n'
 
         return str_[:-1]
 
-    @classmethod
-    def add_matrix(cls, m1, m2):
-        sum_ = []
-
-        if len(m1) != len(m2):
-            raise Exception('Lists with different length')
-
-        for i in range(len(m1)):
-            if type(m1[i]) is list:
-                sum_.append(cls.add_matrix(m1[i], m2[i]))
-            else:
-                sum_.append(m1[i] + m2[i])
-
-        return sum_
-
-    @classmethod
-    def sub_matrix(cls, m1, m2):
-        sub_ = []
-
-        if len(m1) != len(m2):
-            raise Exception('Lists with different length')
-
-        for i in range(len(m1)):
-            if type(m1[i]) is list:
-                sub_.append(cls.sub_matrix(m1[i], m2[i]))
-            else:
-                sub_.append(m1[i] - m2[i])
-
-        return sub_
-
-    @classmethod
-    def mul_matrix(cls, m1, m2):
-        mul = []
-        if type(m2) is list:
-            pass
-        else:
-            for i in range(len(m1)):
-                if type(m1[i]) is list:
-                    mul.append(cls.mul_matrix(m1[i], m2))
-                else:
-                    mul.append(m1[i] * m2)
-
-        return mul
-
-
-matrix = Matrix([[1, 2],
-                 [3, 4]])
-
-matrix2 = Matrix([[-1, 3],
-                  [ 4, 2]])
 
 print matrix
 print -matrix
