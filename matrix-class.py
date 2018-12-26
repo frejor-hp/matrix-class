@@ -109,12 +109,20 @@ class Matrix(object):
                 line += ','
             str_ += '[' + line[1:-1] + ']\n'  # tiro o primeiro espaco para que fique alinhado com o '[' e a ultima ','
 
-        return str_[:-1]  # tiro o ultimo '\n'
+        return str_[:-1]
 
 
-print matrix
-print -matrix
-print matrix + matrix2
-print matrix * 2
-print matrix * matrix2
-print matrix / 2
+matrix = Matrix([[1, 2],
+                 [3, 4]])
+
+matrix2 = Matrix([[132, 43],
+                  [2, -1334343]])
+
+print 'print matrix:', '\n', matrix, '\n'
+print 'print matrix:', '\n', matrix2, '\n'
+print 'negation operator:', '\n', -matrix, '\n'
+print 'add matrix:', '\n', matrix + matrix2, '\n'
+print 'mul matrix by a number:', '\n', matrix * 2, '\n'
+print 'matrix multiplication:', '\n', matrix * matrix2, '\n'
+print 'div matrix by a integer:', '\n', matrix / 2, '\n'
+print 'div matrix by a by a float:', '\n', matrix / 2.
