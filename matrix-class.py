@@ -68,10 +68,10 @@ class Matrix(object):
 
         return Matrix(mul_)
 
-    def __div__(self, other):
+    def __truediv__(self, other):
         if isinstance(other, Matrix):
             div_ = [[]]
-            print 'Division between matrix not implemented yet'
+            print('Division between matrix not implemented yet')
         else:
             div_ = [[p / other for p in self.matrix[i]]
                     for i in range(len(self.matrix))]
@@ -107,9 +107,9 @@ class Matrix(object):
                 line += ' ' * (size+1)  # coloco um espaco a mais para que nao fique junta da ','
                 line += str(self.matrix[i][j])
                 line += ','
-            str_ += '[' + line[1:-1] + ']\n'  # tiro o primeiro espaco para que fique alinhado com o '[' e a ultima ','
+            str_ += ' [' + line[1:-1] + ']\n'  # tiro o primeiro espaco para que fique alinhado com o '[' e a ultima ','
 
-        return str_[:-1]
+        return str_[1:-1]
 
 
 matrix = Matrix([[1, 2],
@@ -118,11 +118,11 @@ matrix = Matrix([[1, 2],
 matrix2 = Matrix([[132, 43],
                   [2, -1334343]])
 
-print 'print matrix:', '\n', matrix, '\n'
-print 'print matrix:', '\n', matrix2, '\n'
-print 'negation operator:', '\n', -matrix, '\n'
-print 'add matrix:', '\n', matrix + matrix2, '\n'
-print 'mul matrix by a number:', '\n', matrix * 2, '\n'
-print 'matrix multiplication:', '\n', matrix * matrix2, '\n'
-print 'div matrix by a integer:', '\n', matrix / 2, '\n'
-print 'div matrix by a by a float:', '\n', matrix / 2.
+print('print matrix:\n', matrix, '\n')
+print('print matrix:', '\n', matrix2, '\n')
+print('negation operator:', '\n', -matrix, '\n')
+print('add matrix:', '\n', matrix + matrix2, '\n')
+print('mul matrix by a number:', '\n', matrix * 2, '\n')
+print('matrix multiplication:', '\n', matrix * matrix2, '\n')
+print('div matrix by a integer:', '\n', matrix / 2, '\n')
+print('div matrix by a by a float:', '\n', matrix / 2.)
